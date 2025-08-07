@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Correct Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control-icon {
+            position: relative;
+        }
+
+        .form-control-icon .input-group-text {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 40px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .form-control {
+            padding-left: 40px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2 class="text-center">Create Your Account</h2>
+        <form action="/register" method="POST" id="register-form">
+            <!-- Username Field -->
+            <div class="mb-3 form-control-icon">
+                <label for="username" class="form-label">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    <input type="text" class="form-control" name="username" id="username" required>
+                </div>
+                <div id="username-feedback" class="invalid-feedback"></div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-3 form-control-icon">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <input type="email" class="form-control" name="email" id="email" required>
+                </div>
+                <div id="email-feedback" class="invalid-feedback"></div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-3 form-control-icon">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" name="password" id="password" required>
+                </div>
+                <div id="password-feedback" class="invalid-feedback"></div>
+            </div>
+
+            <!-- Encryption Key Field -->
+            <div class="mb-3 form-control-icon">
+                <label for="encryption_key" class="form-label">Encryption Key</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    <input type="password" class="form-control" name="encryption_key" id="encryption_key" required>
+                </div>
+                <div id="encryption-key-feedback" class="invalid-feedback"></div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Register</button>
+        </form>
+    </div>
+
+    <script>
+        // Form validation on submit
+        document.getElementById('register-form').addEventListener('submit', function (event) {
+            let valid = true;
+
+            // Username validation (non-empty)
+            let username = document.getElementById('username');
+            if (username.value.trim() === "") {
+                valid = false;
+                document.getElementById('username-feedback').textContent = 'Username is required.';
+                username.classList.add('is-invalid');
+            } else {
+                username.classList.remove('is-invalid');
+            }
+
+            // Email validation (must be a valid email)
+            let email = document.getElementById('email');
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email.value.trim())) {
+                valid = false;
+                document.getElementById('email-feedback').textContent = 'Please enter a valid email address.';
+                email.classList.add('is-invalid');
+            } else {
+                email.classList.remove('is-invalid');
+            }
+
+            // Password validation (non-empty)
+            let password = document.getElementById('password');
+            if (password.value.trim() === "") {
+                valid = false;
+                document.getElementById('password-feedback').textContent = 'Password is required.';
+                password.classList.add('is-invalid');
+            } else {
+                password.classList.remove('is-invalid');
+            }
+
+            // Encryption Key validation (non-empty)
+            let encryptionKey = document.getElementById('encryption_key');
+            if (encryptionKey.value.trim() === "") {
+                valid = false;
+                document.getElementById('encryption-key-feedback').textContent = 'Encryption Key is required.';
+                encryptionKey.classList.add('is-invalid');
+            } else {
+                encryptionKey.classList.remove('is-invalid');
+            }
+
+            // Prevent form submission if validation fails
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+</html>
